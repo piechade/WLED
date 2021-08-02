@@ -117,6 +117,7 @@ void WLED::loop()
 {
   handleTime();
   handleIR();        // 2nd call to function needed for ESP32 to return valid results -- should be good for ESP8266, too
+  handleRF();
   handleConnection();
   handleSerial();
   handleNotifications();
@@ -130,6 +131,7 @@ void WLED::loop()
   yield();
   handleIO();
   handleIR();
+  handleRF();
   handleAlexa();
 
   yield();

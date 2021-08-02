@@ -110,8 +110,16 @@ void decodeIR6(uint32_t code);
 void decodeIR9(uint32_t code);
 void decodeIRJson(uint32_t code);
 
-void initIR();
+void initRF();
 void handleIR();
+
+//rf.cpp
+void decodeRF(unsigned long code);
+void decodeRF21(unsigned long code);
+
+void initRF();
+void handleRF();
+
 
 //json.cpp
 #include "ESPAsyncWebServer.h"

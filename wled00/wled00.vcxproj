@@ -194,6 +194,7 @@
     <ClCompile Include="file.cpp" />
     <ClCompile Include="hue.cpp" />
     <ClCompile Include="ir.cpp" />
+    <ClCompile Include="rf.cpp" />
     <ClCompile Include="json.cpp" />
     <ClCompile Include="led.cpp" />
     <ClCompile Include="mqtt.cpp" />

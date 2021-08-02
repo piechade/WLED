@@ -243,6 +243,7 @@ void loadSettingsFromEEPROM()
   {
     //strip.setColorOrder(EEPROM.read(383));
     irEnabled = EEPROM.read(385);
+    rfEnabled = EEPROM.read(386);
     strip.ablMilliampsMax = EEPROM.read(387) + ((EEPROM.read(388) << 8) & 0xFF00);
   } else if (lastEEPROMversion > 1) //ABL is off by default when updating from version older than 0.8.2
   {

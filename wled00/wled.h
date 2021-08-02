@@ -41,7 +41,7 @@
 #define WLED_ENABLE_FS_EDITOR      // enable /edit page for editing FS content. Will also be disabled with OTA lock
 
 // to toggle usb serial debug (un)comment the following line
-//#define WLED_DEBUG
+#define WLED_DEBUG
 
 // filesystem specific debugging
 //#define WLED_DEBUG_FS
@@ -139,7 +139,8 @@ using PSRAMDynamicJsonDocument = BasicJsonDocument<PSRAM_Allocator>;
 #include "html_settings.h"
 #include "html_other.h"
 #include "FX.h"
-#include "ir_codes.h"
+
+
 #include "const.h"
 #include "NodeStruct.h"
 #include "pin_manager.h"
@@ -163,6 +164,12 @@ using PSRAMDynamicJsonDocument = BasicJsonDocument<PSRAM_Allocator>;
   #include <IRremoteESP8266.h>
   #include <IRrecv.h>
   #include <IRutils.h>
+  #include "ir_codes.h"
+#endif
+
+#ifndef WLED_DISABLE_RADIO
+  #include <RCSwitch.h>
+  #include "rf_codes.h"
 #endif
 
 //Filesystem to use for preset and config files. SPIFFS or LittleFS on ESP8266, SPIFFS only on ESP32 (now using LITTLEFS port by lorol)
@@ -230,6 +237,15 @@ WLED_GLOBAL bool rlyMde _INIT(RLYMDE);
   WLED_GLOBAL int8_t irPin _INIT(4);
   #endif
 #else
+WLED_GLOBAL int8_t rfPin _INIT(RFPIN);
+#endif
+#ifndef RFPIN
+  #ifdef WLED_DISABLE_RADIO
+  WLED_GLOBAL int8_t rfPin _INIT(-1);
+  #else
+  WLED_GLOBAL int8_t rfPin _INIT(4);
+  #endif
+#else
 WLED_GLOBAL int8_t irPin _INIT(IRPIN);
 #endif
 
@@ -290,6 +306,7 @@ WLED_GLOBAL bool nodeBroadcastEnabled _INIT(true);
 
 WLED_GLOBAL byte buttonType[WLED_MAX_BUTTONS]  _INIT({BTN_TYPE_PUSH});
 WLED_GLOBAL byte irEnabled      _INIT(0);     // Infrared receiver
+WLED_GLOBAL byte rfEnabled      _INIT(1);     // Radio receiver
 
 WLED_GLOBAL uint16_t udpPort    _INIT(21324); // WLED notifier default port
 WLED_GLOBAL uint16_t udpPort2   _INIT(65506); // WLED notifier supplemental port
